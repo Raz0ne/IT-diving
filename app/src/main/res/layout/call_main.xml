@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0a0a0a">
+
+    <ImageButton
+        android:id="@+id/expand_btn"
+        android:layout_width="24dp"
+        android:layout_height="20dp"
+        android:contentDescription="@string/expand_btn_desc"
+        android:src="@drawable/expand_more"
+        android:background="@null"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="4dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/upper_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expand_btn">
+
+        <ImageButton
+            android:id="@+id/msg_btn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="@string/msg_btn_desc"
+            android:src="@drawable/chat_bubble"
+            android:background="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="4dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/contacts_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/members_btn_desc"
+            android:src="@drawable/group"
+            android:background="@null"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/grid_btn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="@string/panels_btn_desc"
+            android:src="@drawable/grid_view"
+            android:background="@null"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        layout="@layout/call_member_layout"
+        android:id="@+id/main_member"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_margin="2dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/upper_panel"
+        app:layout_constraintBottom_toTopOf="@id/another_member" />
+
+    <include
+        layout="@layout/call_member_layout"
+        android:id="@+id/another_member"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_margin="2dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_member"
+        app:layout_constraintBottom_toTopOf="@id/lower_panel"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lower_panel"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:paddingHorizontal="16dp"
+        android:background="@drawable/lower_layout_bg"
+        android:backgroundTint="@color/dark_gray"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageButton
+            android:id="@+id/minimize_btn"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:contentDescription="@string/minimize_btn_desc"
+            android:src="@drawable/chrome_minimize"
+            android:background="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="24dp"/>
+
+        <ImageButton
+            android:id="@+id/camera_btn"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginHorizontal="16dp"
+            android:contentDescription="@string/camera_btn_desc"
+            android:src="@drawable/videocam_off"
+            android:background="@drawable/white_round_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/micro_btn"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/micro_btn"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginHorizontal="16dp"
+            android:contentDescription="@string/micro_btn_desc"
+            android:src="@drawable/mic_off"
+            android:background="@drawable/white_round_button"
+            app:layout_constraintStart_toEndOf="@id/camera_btn"
+            app:layout_constraintEnd_toStartOf="@id/hello_btn"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/hello_btn"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:rotation="30"
+            android:layout_marginHorizontal="16dp"
+            android:contentDescription="@string/hello_btn_desc"
+            android:src="@drawable/hand_gesture"
+            android:background="@drawable/red_round_button"
+            android:backgroundTint="@color/cardview_dark_background"
+            app:layout_constraintStart_toEndOf="@id/micro_btn"
+            app:layout_constraintEnd_toStartOf="@id/call_end_btn"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/call_end_btn"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginHorizontal="16dp"
+            android:contentDescription="@string/call_end_btn_desc"
+            android:src="@drawable/call_end"
+            android:background="@drawable/red_round_button"
+            app:layout_constraintStart_toEndOf="@id/hello_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

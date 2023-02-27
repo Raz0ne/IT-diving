@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name" translatable="false">Calls</string>
+
+    <string name="expand_btn_desc" translatable="false">-</string>
+
+    <string name="msg_btn_desc" translatable="false">open system message app</string>
+    <string name="members_btn_desc" translatable="false">open contacts activity</string>
+    <string name="panels_btn_desc" translatable="false">swap members panels</string>
+
+    <string name="user_img_desc" translatable="false">avatar</string>
+    <string name="user_bg_img_desc" translatable="false">blur avatar as background</string>
+
+    <string name="minimize_btn_desc" translatable="false">-</string>
+    <string name="camera_btn_desc" translatable="false">change camera mode</string>
+    <string name="micro_btn_desc" translatable="false">change micro mode</string>
+    <string name="hello_btn_desc" translatable="false">show hello alertdialog</string>
+    <string name="call_end_btn_desc" translatable="false">finish app</string>
+    <string name="main_activity" translatable="false">Main Activity</string>
+
+    <string name="hello" translatable="true">Hello</string>
+    <string name="hello_answer" translatable="true">Well, hello</string>
+    <string name="you" translatable="true">You</string>
+    <string name="test_name" translatable="false">
+        Venera Phone Long Contact For Test And Test Again</string>
+    <string name="call" translatable="true">Call</string>
+</resources>
