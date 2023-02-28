@@ -1,7 +1,6 @@
 package edu.it_diving.view;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -10,30 +9,18 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.provider.MediaStore;
 import android.util.Log;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import edu.it_diving.R;
 import edu.it_diving.databinding.CallMainBinding;
 
-import edu.it_diving.databinding.CallMemberLayoutBinding;
-import edu.it_diving.model.CallMember;
-import edu.it_diving.viewModel.CameraViewModel;
-import edu.it_diving.viewModel.MicViewModel;
+import edu.it_diving.viewModel.AnotherCallMember;
+import edu.it_diving.viewModel.MainCallMember;
 
 
 public class CallActivity extends AppCompatActivity {
@@ -44,7 +31,8 @@ public class CallActivity extends AppCompatActivity {
 
     private boolean mainUserIsAtTop = true;
 
-    private CallMember mainMember, anotherMember;
+    private MainCallMember mainMember;
+    private AnotherCallMember anotherMember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +41,14 @@ public class CallActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = CallMainBinding.inflate(getLayoutInflater());
 
-        mainMember = new CallMember(getString(R.string.you), R.drawable.me);
-        anotherMember =
-                new CallMember(getString(R.string.test_name), R.drawable.cat);
+        mainMember = new MainCallMember(this, getString(R.string.you), R.drawable.me);
+        anotherMember = new AnotherCallMember(this, getString(R.string.test_name),
+                R.drawable.cat);
 
-        mainMember.cameraViewModel = new ViewModelProvider(this).get(CameraViewModel.class);
-        mainMember.micViewModel = new ViewModelProvider(this).get(MicViewModel.class);
+        MainCallMemberFragment mainMemberFragment = binding.mainMember.getFragment();
+        mainMemberFragment.setCallMember(mainMember);
+        AnotherCallMemberFragment anotherMemberFragment = binding.anotherMember.getFragment();
+        anotherMemberFragment.setCallMember(anotherMember);
 
         binding.msgBtn.setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(this,
@@ -82,14 +72,16 @@ public class CallActivity extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 mainMember.cameraViewModel.changeMode();
+                changeCameraBtnImg(mainMember.cameraViewModel.getMode());
             } else
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.CAMERA}, 0);
         });
-        binding.microBtn.setOnClickListener(v -> {
+        binding.micBtn.setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
                 mainMember.micViewModel.changeMode();
+                changeMicBtnImg(mainMember.micViewModel.getMode());
             } else
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.RECORD_AUDIO}, 0);
@@ -106,12 +98,6 @@ public class CallActivity extends AppCompatActivity {
             setResult(RESULT_CANCELED);
             finish();
         });
-
-        mainMember.cameraViewModel.getModeContainer().observe(this, this::changeCameraBtnImg);
-        mainMember.micViewModel.getModeContainer().observe(this, this::changeMicroBtnImg);
-
-        mainMember.fillView(this, binding.mainMember.callMemberView);
-        anotherMember.fillView(this, binding.anotherMember.callMemberView);
 
         constraintSetMainCallMemberAtTop.clone(binding.getRoot());
         constraintSetMainCallMemberAtBottom.clone(binding.getRoot());
@@ -134,7 +120,7 @@ public class CallActivity extends AppCompatActivity {
         super.onActivityResult(reqCode, resultCode, data);
 
         switch (reqCode) {
-            case (1):
+            case 1:
                 if (resultCode == Activity.RESULT_OK) {
                     Uri contactData = data.getData();
                     try (Cursor c = this.getContentResolver().query(contactData,
@@ -143,9 +129,8 @@ public class CallActivity extends AppCompatActivity {
                         if (c.moveToFirst()) {
                             String name = c.getString(c.getColumnIndexOrThrow(
                                     ContactsContract.Contacts.DISPLAY_NAME));
-                            anotherMember.setName(name);
-                            anotherMember.fillView(this,
-                                    binding.anotherMember.callMemberView);
+
+                            anotherMember.nameViewModel.setName(name);
                         }
                     }
                 }
@@ -171,24 +156,19 @@ public class CallActivity extends AppCompatActivity {
         }
     }
 
-    private void changeMicroBtnImg(boolean mode) {
+    private void changeMicBtnImg(boolean mode) {
         if (mode) {
-            binding.microBtn.setBackground(
+            binding.micBtn.setBackground(
                     ContextCompat.getDrawable(this, R.drawable.gray_round_button));
-            binding.microBtn.setImageDrawable(
+            binding.micBtn.setImageDrawable(
                     ContextCompat.getDrawable(this, R.drawable.mic));
-            binding.mainMember.nameTxt
-                    .setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         }
 
         else {
-            binding.microBtn.setBackground(
+            binding.micBtn.setBackground(
                     ContextCompat.getDrawable(this, R.drawable.white_round_button));
-            binding.microBtn.setImageDrawable(
+            binding.micBtn.setImageDrawable(
                     ContextCompat.getDrawable(this, R.drawable.mic_off));
-            binding.mainMember.nameTxt
-                    .setCompoundDrawablesWithIntrinsicBounds(0, 0,
-                            R.drawable.mic_off_small, 0);
         }
     }
 

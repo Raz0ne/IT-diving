@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/call_member_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/bg_img"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:shapeAppearanceOverlay="@style/RoundedSquare"
+        android:contentDescription="@string/user_bg_img_desc"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/icon_img"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:shapeAppearanceOverlay="@style/Circular"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/user_img_desc"
+        app:layout_constraintTop_toTopOf="@id/bg_img"
+        app:layout_constraintBottom_toBottomOf="@id/bg_img"
+        app:layout_constraintStart_toStartOf="@id/bg_img"
+        app:layout_constraintEnd_toEndOf="@id/bg_img"/>
+
+    <TextView
+        android:id="@+id/name_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        app:drawableEndCompat="@drawable/mic_off_small"
+        app:layout_constraintBottom_toBottomOf="@id/bg_img"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintStart_toStartOf="@id/bg_img"
+        app:layout_constraintEnd_toEndOf="@id/bg_img" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

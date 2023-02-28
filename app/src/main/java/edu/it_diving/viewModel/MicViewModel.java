@@ -7,7 +7,7 @@ public class MicViewModel extends ViewModel {
 
     private boolean mode = false;
 
-    private final MutableLiveData<Boolean> observableContainer = new MutableLiveData<Boolean>();
+    private final MutableLiveData<Boolean> observableContainer = new MutableLiveData<>();
 
     public MutableLiveData<Boolean> getModeContainer() {
         return observableContainer;
