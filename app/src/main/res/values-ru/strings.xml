@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="menu">Меню</string>
+    <string name="call">Позвонить</string>
+
     <string name="hello">Привет</string>
     <string name="hello_answer">И тебе привет</string>
+
     <string name="you">Вы</string>
-    <string name="call">Позвонить</string>
 </resources>

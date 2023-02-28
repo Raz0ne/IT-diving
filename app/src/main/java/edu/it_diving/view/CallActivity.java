@@ -80,11 +80,11 @@ public class CallActivity extends AppCompatActivity {
         binding.gridBtn.setOnClickListener(v -> swapCallMembersView());
         binding.cameraBtn.setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+                    Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 mainMember.cameraViewModel.changeMode();
             } else
                 ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.RECORD_AUDIO}, 0);
+                        new String[]{Manifest.permission.CAMERA}, 0);
         });
         binding.microBtn.setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(this,
