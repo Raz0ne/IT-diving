@@ -22,11 +22,9 @@ public class MainCallMemberFragment extends CallMemberFragment {
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
         MutableLiveData<Boolean> x = callMember.micViewModel.getModeContainer();
-        Log.d("Call_Activity", "4");
         x.observe(getViewLifecycleOwner(),
                 this::changeMicroDrawableRight);
 
-        Log.d("Call_Activity", "4");
         return v;
     }
 
